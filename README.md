@@ -1,6 +1,111 @@
 # Algorithme-de-chiffrement
  Algorithme de chiffrement symétrique
 
+
+## 1 - Initialisation
+
+### **clef de chiffrement**
+
+&emsp;512 bits
+
+&emsp;composition de lettre minuscule et chiffre
+
+### **message**
+
+&emsp;division du message en morceau de 128 bits `x_message`
+
+### **clef de chiffrement** 
+
+&emsp;hash de la clef 
+
+&emsp;dérivation en ( 2 * `x_message` + 2 * `x_message`+ 2 * `x_message` + 2) sous clef `y_sous_clef`
+
+&emsp;&emsp;2 * `x_message` pour la première couche de chiffrement  `y_sous_clef0`
+
+&emsp;&emsp;2 * `x_message` pour les 2 itérations de la boucle principale `y_sous_clef1`
+
+&emsp;&emsp;2 * `x_message` pour la dernière couche de chiffrement `y_sous_clef2`
+
+&emsp;&emsp;+2 pour les 2 couches intermédiaires `y_sous_clef3`
+
+### **vecteur initialisation** 
+
+&emsp;((2*2+2) * `x_message`) nombres aléatoires correspondant à des fonctions `vecteur`
+
+&emsp;&emsp;2 pour 2 fonctions de chiffrement par itération de la boucle principale
+
+&emsp;&emsp;*2 pour 2 itérations
+
+&emsp;&emsp;+2 pour une fonction utilisant la clef de chiffrement pour les 2 itérations
+
+&emsp;&emsp;*`x_message` pour `x_message` bout de message
+
+## 2 - Première couche
+
+2 itérations `i` pour chacune des `x_message`
+
+&emsp;dérivation de la `i` ème `y_sous_clef0` = `y_sous_clef0_1`
+
+&emsp;xor avec la première dérivée de la `i` ème `y_sous_clef0_1`
+
+&emsp;1 fonction de chiffrement utilisant la deuxième dérivée de la`i` ème `y_sous_clef0_1`
+
+&emsp;xor avec la troisième dérivée de la `i` ème `y_sous_clef0_1`
+
+## 3 - Intermédiaire
+
+dérivation en 2 de la première `y_sous_clef3`
+
+reconstitution de message avec les `x_message` chiffré en utilisant la première dérivée de `y_sous_clef3`
+
+redécoupage du message en morceau de 256 bits `x_message2` en utilisant la deuxième dérivée de `y_sous_clef3`
+
+## 4 - Boucle principale
+
+2 itération `j` pour chacune des `x_message2`
+
+&emsp;dérivation de 3 sous clefs  de la `j` ème `y_sous_clef1` = `y_sous_clef1_1`
+
+&emsp;xor avec le première `y_sous_clef1_1`
+
+&emsp;2 fonctions de chiffrement choisies par le `vecteur` parmi les fonction de chiffrement
+
+&emsp;1 fonction de chiffrement choisie par le `vecteur`  utilisant la deuxième `y_sous_clef1_1` 
+
+&emsp;xor avec la troisième `y_sous_clef1_1`
+
+## 5 - Intermédiaire
+
+dérivation en 3 de la deuxième `y_sous_clef3`
+
+reconstitution de message avec les `x_message2` chiffré en utilisant la première dérivée de `y_sous_clef3`
+
+ajout du `vecteur` dans le message en utilisant la deuxième dérivée de `y_sous_clef3`
+
+redécoupage du message en morceau de 256 bits `x_message3` en utilisant la troisième dérivée de `y_sous_clef3`
+
+## 6 - Dernière couche
+
+2 itérations `k` pour chacune des `x_message3`
+
+&emsp;dérivation de la `k` ème `y_sous_clef2` = `y_sous_clef0_1`
+
+&emsp;xor avec la première dérivée de la `k` ème `y_sous_clef0_1`
+
+&emsp;1 fonction de chiffrement utilisant la deuxième dérivée de la`k` ème `y_sous_clef0_1`
+
+&emsp;xor avec la troisième dérivée de la `k` ème `y_sous_clef0_1`
+
+## 7 - Reconstitution
+
+reconstitution de message avec les `x_message3` chiffré en utilisant la deuxième `y_sous_clef3`
+
+
+
+----
+
+
+
 ### **Classe `Key` :**
 
 - **`deriveKeys`**: Cette méthode prend une clé et dérive plusieurs sous-clés à l'aide de la fonction de hachage SHA256 et HKDF (HMAC Key Derivation Function).

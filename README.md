@@ -48,7 +48,7 @@ python3 "C:/chemin/vers/votre_script.py" -k 'votre_clé_secrete' -f 'C:/chemin/v
 ```
 
 - `chemin_vers_script`: Chemin complet vers votre script de chiffrement Python.
-- `-k 'votre_clé'`: Option pour spécifier la clé de chiffrement entre guillemets simples.
+- `-k 'votre_clé'`: Option pour spécifier la clé de chiffrement (optionnel).
 - `-f 'chemin_vers_votre_fichier'`: Option pour spécifier le chemin complet vers le fichier à chiffrer.
 
 Déchiffrement :
@@ -58,6 +58,6 @@ python3 "C:/chemin/vers/votre_script.py" -k 'votre_clé_secrete' -f 'C:/chemin/v
 ```
 
 - `chemin_vers_script`: Chemin complet vers votre script de chiffrement Python.
-- `-k 'votre_clé'`: Option pour spécifier la clé de chiffrement entre guillemets simples.
+- `-k 'votre_clé'`: Option pour spécifier la clé de déchiffrement.
 - `-f 'chemin_vers_votre_fichier'`: Option pour spécifier le chemin complet vers le fichier chiffré.
 - `-m d`: Option pour spécifier le mode déchiffrement
